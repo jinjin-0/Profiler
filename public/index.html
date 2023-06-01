@@ -116,6 +116,14 @@
   <div style = "text-align:center;">
     <canvas id="chart" style="height:60vh; width:50vw"></canvas>
   </div>
+  <div class="chart-buttons">
+    <button data-chart-type="line" onclick="toggleChartType(event)"class="oui-button font_patching">선 차트</button>
+    <button data-chart-type="bar" onclick="toggleChartType(event)" class="oui-button font_patching">바 차트</button>
+    <button data-chart-type="horizontalBar" onclick="toggleChartType(event)" class="oui-button font_patching">수평 바 차트</button>
+    <button data-chart-type="radar" onclick="toggleChartType(event)" class="oui-button font_patching">레이더 차트</button>
+    <button data-chart-type="doughnut" onclick="toggleChartType(event)" class="oui-button font_patching">도넛 차트</button>
+    <button data-chart-type="pie" onclick="toggleChartType(event)" class="oui-button font_patching">파이 차트</button>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
