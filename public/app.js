@@ -1,5 +1,6 @@
 const ctx = document.getElementById("chart").getContext("2d");
 let chart;
+let chartType = "line"; // 초기에는 라인 차트로 시작
 
 function loadData(group, id) {
   fetch(`/data/${group}/${id}`)
@@ -15,7 +16,7 @@ function loadData(group, id) {
       }
 
       chart = new Chart(ctx, {
-        type: "line",
+        type: chartType,
         data: {
           labels: data.map((item) => item.label),
           datasets: [
@@ -57,3 +58,38 @@ function loadData(group, id) {
       console.error("오류로 인하여 작업을 실행하지 못했습니다.", error);
     });
 }
+
+function toggleChartType(event) {
+  const selectedChartType = event.target.dataset.chartType;
+  if (selectedChartType !== chartType) {
+    chartType = selectedChartType;
+    if (chart) {
+      chart.destroy();
+    }
+    chart = new Chart(ctx, {
+      type: chartType,
+      data: {
+        labels: [],
+        datasets: [],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+    loadData("data_group", "data_id");
+  }
+}
+
+loadData("data_group", "data_id"); // 초기 데이터 로드
+
+// 7개의 차트 버튼
+const chartButtons = document.querySelectorAll(".chart-button");
+chartButtons.forEach((button) => {
+  button.addEventListener("click", toggleChartType);
+});
